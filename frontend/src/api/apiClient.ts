@@ -1,39 +1,92 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
-
-async function request(endpoint: string, options: RequestInit = {}) {
-  const url = `${API_BASE_URL}${endpoint}`;
-  const defaultHeaders = {
-    'Content-Type': 'application/json',
-  };
-
-  const config = {
-    ...options,
-    headers: {
-      ...defaultHeaders,
-      ...(options.headers || {}),
-    },
-  };
-
-  const response = await fetch(url, config);
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.error || 'Erreur inconnue');
-  }
-
-  return response.json();
-}
-
-// Auth APIs
-export async function loginUser(email: string, password: string) {
-  return request('/auth/login', {
-    method: 'POST',
-    body: JSON.stringify({ usernameOrEmail: email, password }),
-  });
-}
-
-// Additional API calls can be added here following the same pattern
-
-export default {
-  loginUser,
+  // Ajoutez ici d'autres méthodes API si nécessaire, par ex. fetchDocuments, uploadDocument, etc.
 };
+
+export default apiClient;
+=======
+  },
+
+  // Droits d'accès
+  getUserAccessRights: async (userId: string, documentId: string) => {
+    const response = await fetch(`${BASE_URL}/droits-acces/user/${userId}/document/${documentId}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    return handleResponse(response);
+  },
+  upsertAccessRights: async (data: { userId: string; documentId: string; access_level: string }) => {
+    const response = await fetch(`${BASE_URL}/droits-acces`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      credentials: 'include',
+    });
+    return handleResponse(response);
+  },
+  deleteAccessRights: async (userId: string, documentId: string) => {
+    const response = await fetch(`${BASE_URL}/droits-acces/user/${userId}/document/${documentId}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+    return handleResponse(response);
+  },
+
+  // Historique des actions
+  getUserActions: async (userId: string) => {
+    const response = await fetch(`${BASE_URL}/historique-actions/user/${userId}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    return handleResponse(response);
+  },
+
+  logAction: async (data: { userId: string; action: string; target_type?: string; target_id?: number }) => {
+    const response = await fetch(`${BASE_URL}/historique-actions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      credentials: 'include',
+    });
+    return handleResponse(response);
+  },
+
+  // Métadonnées
+  getDocumentMetadata: async (documentId: string) => {
+    const response = await fetch(`${BASE_URL}/metadonnees/document/${documentId}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    return handleResponse(response);
+  },
+
+  createMetadata: async (data: { document_id: string; key: string; value: string }) => {
+    const response = await fetch(`${BASE_URL}/metadonnees`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      credentials: 'include',
+    });
+    return handleResponse(response);
+  },
+
+  updateMetadata: async (id: string, data: { key: string; value: string }) => {
+    const response = await fetch(`${BASE_URL}/metadonnees/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      credentials: 'include',
+    });
+    return handleResponse(response);
+  },
+
+  deleteMetadata: async (id: string) => {
+    const response = await fetch(`${BASE_URL}/metadonnees/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+    return handleResponse(response);
+  },
+
+  // Ajoutez ici d'autres méthodes API si nécessaire, par ex. fetchDocuments, uploadDocument, etc.
+};
+
+export default apiClient;

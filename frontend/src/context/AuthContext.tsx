@@ -13,12 +13,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = (userData: any) => {
     setUser(userData);
-    // Ici, vous pouvez ajouter sauvegarde dans localStorage ou cookie
+    // Vous pouvez ajouter ici la sauvegarde dans localStorage ou cookies
   };
 
   const logout = () => {
     setUser(null);
-    // Nettoyer localStorage ou cookie si nécessaire
+    // Nettoyer localStorage ou cookies si nécessaire
   };
 
   return (

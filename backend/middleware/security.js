@@ -2,12 +2,30 @@ const helmet = require('helmet');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  // ajouter ici les autres origines autorisées, par exemple en production
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // autoriser les requêtes sans origine (ex : Postman, curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = `L'origine ${origin} n'est pas autorisée par le CORS.`;
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+};
+
 const securityMiddleware = (app) => {
   // Helmet aide à sécuriser les applications Express en définissant divers en-têtes HTTP
   app.use(helmet());
 
-  // Activer CORS avec les paramètres par défaut (devrait être configuré pour les origines autorisées)
-  app.use(cors());
+  // Activer CORS avec configuration stricte des origines autorisées
+  app.use(cors(corsOptions));
 
   // Configuration de base du limitateur de requêtes pour limiter les requêtes répétées aux APIs publiques
   const limiter = rateLimit({

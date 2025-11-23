@@ -2,50 +2,38 @@ import React, { useState } from 'react';
 
 const Search = () => {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<string[]>([]);
+  const [results, setResults] = useState<any[]>([]);
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Simulation de recherche, vous pouvez appeler API backend ici
-    if (query.trim() !== '') {
-      setResults([
-        `Résultat 1 pour "${query}"`,
-        `Résultat 2 pour "${query}"`,
-        `Résultat 3 pour "${query}"`,
-      ]);
-    } else {
-      setResults([]);
-    }
+  const handleSearch = () => {
+    // Placeholder: Add real search logic here to query backend or data source
+    setResults([]);
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-8 bg-white rounded shadow">
-      <h1 className="text-3xl font-bold mb-6">Recherche avancée</h1>
-      <form onSubmit={handleSearch} className="mb-6">
-        <input
-          type="text"
-          className="w-full p-3 border rounded"
-          placeholder="Entrez vos critères de recherche"
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          required
-        />
-        <button
-          type="submit"
-          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          Rechercher
-        </button>
-      </form>
-      <div>
-        {results.length > 0 ? (
-          <ul className="list-disc list-inside space-y-2">
-            {results.map((res, idx) => (
-              <li key={idx}>{res}</li>
+    <div className="max-w-lg mx-auto mt-20 p-8 border rounded shadow bg-white">
+      <h2 className="text-2xl font-bold mb-6">Recherche de documents</h2>
+      <input
+        type="text"
+        placeholder="Entrez un terme de recherche"
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+        className="w-full p-2 mb-4 border rounded"
+      />
+      <button
+        onClick={handleSearch}
+        className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+      >
+        Rechercher
+      </button>
+      <div className="mt-6">
+        {results.length === 0 ? (
+          <p>Aucun résultat à afficher.</p>
+        ) : (
+          <ul>
+            {results.map((result, index) => (
+              <li key={index}>{JSON.stringify(result)}</li>
             ))}
           </ul>
-        ) : (
-          <p>Aucun résultat</p>
         )}
       </div>
     </div>

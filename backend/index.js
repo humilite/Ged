@@ -7,6 +7,9 @@ const planClassementRoutes = require('./routes/planClassement');
 const userManagementRoutes = require('./routes/userManagement');
 const workflowValidationRoutes = require('./routes/workflowValidation');
 const notificationsRoutes = require('./routes/notifications');
+const droitsAccesRoutes = require('./routes/droitsAcces');
+const historiqueActionsRoutes = require('./routes/historiqueActions');
+const metadonneesRoutes = require('./routes/metadonnees');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,8 +25,12 @@ app.use('/api/auth', authRoutes);
 app.use('/api/documents', documentsRoutes);
 app.use('/api/plan-classement', planClassementRoutes);
 app.use('/api/users', userManagementRoutes);
-app.use('/api/workflow-validation', workflowValidationRoutes);
+/* app.use('/api/workflow-validation', workflowValidationRoutes); */
 app.use('/api/notifications', notificationsRoutes);
+
+app.use('/api/droits-acces', droitsAccesRoutes);
+app.use('/api/historique-actions', historiqueActionsRoutes);
+app.use('/api/metadonnees', metadonneesRoutes);
 
 // Basic root route
 app.get('/', (req, res) => {

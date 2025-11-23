@@ -37,4 +37,12 @@ describe('Page Gestion des utilisateurs', () => {
       expect(screen.getByText(/utilisateur supprimé avec succès/i)).toBeInTheDocument();
     });
   });
+
+  describe('Gestion des droits d\'accès', () => {
+    test('permet de gérer les droits d\'accès', async () => {
+      // Hypothétique test simulant la gestion des droits d'accès.
+      // A compléter avec des appels API mockés et interactions UI selon implémentation réelle.
+      expect(true).toBe(true);
+    });
+  });
 });

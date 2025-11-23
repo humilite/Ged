@@ -1,36 +1,37 @@
 import React, { useState } from 'react';
 
 const DocumentUpload = () => {
-  const [file, setFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [uploadStatus, setUploadStatus] = useState<string>('');
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0]);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setSelectedFile(event.target.files[0]);
+      setUploadStatus('');
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!file) {
-      alert('Veuillez sélectionner un fichier.');
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      setUploadStatus('Veuillez sélectionner un fichier avant de télécharger.');
       return;
     }
-    // Ici ajoutez la logique d'upload au backend
-    alert(`Fichier à uploader: ${file.name}`);
+
+    // Placeholder for actual upload logic
+    setUploadStatus('Fonction de téléchargement en cours de développement...');
   };
 
   return (
-    <div className="max-w-md mx-auto p-8 bg-white rounded shadow mt-10">
-      <h2 className="text-2xl font-bold mb-6">Déposer un document</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="file" onChange={handleFileChange} className="mb-4" />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          Envoyer
-        </button>
-      </form>
+    <div className="max-w-lg mx-auto mt-20 p-8 border rounded shadow bg-white">
+      <h2 className="text-2xl font-bold mb-6">Télécharger un document</h2>
+      <input type="file" onChange={handleFileChange} className="mb-4" />
+      <button
+        onClick={handleUpload}
+        className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+      >
+        Télécharger
+      </button>
+      {uploadStatus && <p className="mt-4">{uploadStatus}</p>}
     </div>
   );
 };

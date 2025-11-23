@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const workflowValidationController = require('../controllers/workflowValidationController');
+const { getValidationsByDocument, createValidation, updateValidationStatus } = require('../controllers/workflowValidationController');
 const { authenticateJWT } = require('../middleware/auth');
 
 // Récupérer toutes les validations d'un document
-router.get('/document/:documentId', authenticateJWT, workflowValidationController.getValidationsByDocument);
+router.get('/document/:documentId', authenticateJWT, getValidationsByDocument);
 
 // Créer une nouvelle étape de validation
-router.post('/', authenticateJWT, workflowValidationController.createValidation);
+router.post('/', authenticateJWT, createValidation);
 
 // Mettre à jour le statut d'une validation
-router.put('/:id', authenticateJWT, workflowValidationController.updateValidationStatus);
+router.put('/:id', authenticateJWT, updateValidationStatus);
 
 module.exports = router;
