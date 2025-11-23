@@ -1,7 +1,7 @@
 'use strict';
 
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('./index');
+import { DataTypes } from 'sequelize';
+import { sequelize } from './index.js';
 
 // Modèle de métadonnées associées aux documents
 const Metadonnees = sequelize.define('Metadonnees', {
@@ -31,4 +31,4 @@ const Metadonnees = sequelize.define('Metadonnees', {
   timestamps: false,
 });
 
-module.exports = Metadonnees;
+export default Metadonnees;

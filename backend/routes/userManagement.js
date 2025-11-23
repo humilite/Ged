@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import { authenticateJWT } from '../middleware/auth.js';
+import * as userController from '../controllers/userManagementController.js';
+
 const router = express.Router();
-const authenticateJWT = require('../middleware/auth');
-const userController = require('../controllers/userManagementController');
 
 // Protection des routes par authentification JWT
 router.use(authenticateJWT);
@@ -17,4 +18,4 @@ router.get('/permissions/:user_id', userController.getUserPermissions);
 router.post('/permissions', userController.addPermission);
 router.delete('/permissions/:id', userController.removePermission);
 
-module.exports = router;
+export default router;

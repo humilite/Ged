@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import { authenticateJWT } from '../middleware/auth.js';
+import * as planController from '../controllers/planClassementController.js';
+
 const router = express.Router();
-const authenticateJWT = require('../middleware/auth');
-const planController = require('../controllers/planClassementController');
 
 // Protection des routes
 router.use(authenticateJWT);
@@ -18,4 +19,4 @@ router.put('/:id', planController.updatePlan);
 // Supprimer une entrée
 router.delete('/:id', planController.deletePlan);
 
-module.exports = router;
+export default router;

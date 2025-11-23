@@ -1,7 +1,7 @@
 'use strict';
 
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('./index');
+import { DataTypes } from 'sequelize';
+import { sequelize, Sequelize } from './index.js';
 
 // Définition du modèle User représentant la table 'users' avec les colonnes et leurs contraintes
 const User = sequelize.define('User', {
@@ -35,4 +35,4 @@ const User = sequelize.define('User', {
   updatedAt: false,
 });
 
-module.exports = User;
+export default User;

@@ -1,9 +1,10 @@
-const express = require('express');
+import express from 'express';
+import { authenticateJWT } from '../middleware/auth.js';
+import * as documentsController from '../controllers/documentsController.js';
+import multer from 'multer';
+import path from 'path';
+
 const router = express.Router();
-const authenticateJWT = require('../middleware/auth');
-const documentsController = require('../controllers/documentsController');
-const multer = require('multer');
-const path = require('path');
 
 // Configuration du stockage multer pour les uploads de fichiers
 const storage = multer.diskStorage({
@@ -26,4 +27,4 @@ router.post('/upload', upload.single('document'), documentsController.uploadDocu
 // Route de recherche avancée de documents
 router.get('/search', documentsController.searchDocuments);
 
-module.exports = router;
+export default router;

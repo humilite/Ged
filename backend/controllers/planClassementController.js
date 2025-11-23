@@ -1,9 +1,9 @@
-const PlanClassement = require('../models/plan_classement');
+import PlanClassement from '../models/plan_classement.js';
 
 /**
  * Récupérer toute la hiérarchie du plan de classement
  */
-async function getHierarchy(req, res) {
+export async function getHierarchy(req, res) {
   try {
     const plans = await PlanClassement.findAll();
     // Construire arbre hiérarchique
@@ -37,7 +37,7 @@ async function getHierarchy(req, res) {
 /**
  * Créer une nouvelle entrée dans le plan de classement
  */
-async function createPlan(req, res) {
+export async function createPlan(req, res) {
   try {
     const { parent_id, name, description } = req.body;
     if (!name) {
@@ -54,7 +54,7 @@ async function createPlan(req, res) {
 /**
  * Mettre à jour une entrée du plan de classement
  */
-async function updatePlan(req, res) {
+export async function updatePlan(req, res) {
   try {
     const { id } = req.params;
     const { parent_id, name, description } = req.body;
@@ -74,7 +74,7 @@ async function updatePlan(req, res) {
 /**
  * Supprimer une entrée du plan de classement
  */
-async function deletePlan(req, res) {
+export async function deletePlan(req, res) {
   try {
     const { id } = req.params;
 
@@ -89,10 +89,3 @@ async function deletePlan(req, res) {
     res.status(500).json({ error: 'Erreur interne du serveur' });
   }
 }
-
-module.exports = {
-  getHierarchy,
-  createPlan,
-  updatePlan,
-  deletePlan,
-};

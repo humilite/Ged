@@ -1,34 +1,44 @@
-'use strict';
+import { DataTypes } from 'sequelize';
+import { sequelize } from './index.js';
 
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('./index');
-
-// Modèle d'historique des actions réalisées par les utilisateurs
+/**
+ * Modèle représentant l'historique des actions des utilisateurs.
+ */
 const HistoriqueActions = sequelize.define('HistoriqueActions', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  user_id: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    comment: "L'ID de l'utilisateur ayant effectué l'action",
   },
   action: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING,
     allowNull: false,
+    comment: "Description de l'action effectuée",
   },
-  details: {
-    type: DataTypes.TEXT,
+  target_type: {
+    type: DataTypes.STRING,
     allowNull: true,
+    comment: "Type de la cible de l'action (ex: document, utilisateur)",
   },
-  created_at: {
+  target_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    comment: "ID de la cible de l'action",
+  },
+  timestamp: {
     type: DataTypes.DATE,
+    allowNull: false,
     defaultValue: DataTypes.NOW,
-  }
+    comment: "Horodatage de l'action",
+  },
 }, {
   tableName: 'historique_actions',
   timestamps: false,
 });
 
-module.exports = HistoriqueActions;
+export default HistoriqueActions;

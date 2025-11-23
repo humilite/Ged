@@ -1,7 +1,7 @@
 'use strict';
 
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('./index');
+import { DataTypes } from 'sequelize';
+import { sequelize } from './index.js';
 
 // Modèle du plan de classement hiérarchique avec référence parent/enfant
 const PlanClassement = sequelize.define('PlanClassement', {
@@ -36,4 +36,4 @@ const PlanClassement = sequelize.define('PlanClassement', {
   timestamps: false,
 });
 
-module.exports = PlanClassement;
+export default PlanClassement;

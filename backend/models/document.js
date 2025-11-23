@@ -1,7 +1,7 @@
 'use strict';
 
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('./index');
+import { DataTypes } from 'sequelize';
+import { sequelize } from './index.js';
 
 // Définition du modèle Document représentant la table 'documents' avec ses colonnes
 const Document = sequelize.define('Document', {
@@ -31,4 +31,4 @@ const Document = sequelize.define('Document', {
   timestamps: false,
 });
 
-module.exports = Document;
+export default Document;

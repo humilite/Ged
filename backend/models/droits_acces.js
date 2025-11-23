@@ -1,7 +1,7 @@
 'use strict';
 
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('./index');
+import { DataTypes } from 'sequelize';
+import { sequelize } from './index.js';
 
 // Modèle des droits d'accès des utilisateurs aux documents ou fonctions
 const DroitsAcces = sequelize.define('DroitsAcces', {
@@ -31,4 +31,4 @@ const DroitsAcces = sequelize.define('DroitsAcces', {
   timestamps: false,
 });
 
-module.exports = DroitsAcces;
+export default DroitsAcces;

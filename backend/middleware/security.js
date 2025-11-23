@@ -1,6 +1,6 @@
-const helmet = require('helmet');
-const cors = require('cors');
-const rateLimit = require('express-rate-limit');
+import helmet from 'helmet';
+import cors from 'cors';
+import rateLimit from 'express-rate-limit';
 
 const allowedOrigins = [
   'http://localhost:3000',
@@ -37,4 +37,4 @@ const securityMiddleware = (app) => {
   app.use(limiter);
 };
 
-module.exports = securityMiddleware;
+export default securityMiddleware;

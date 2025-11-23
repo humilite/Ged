@@ -1,14 +1,15 @@
-const path = require('path');
-const fs = require('fs');
-const Document = require('../models/document');
-const { Op } = require('sequelize');
+import path from 'path';
+import fs from 'fs';
+import Document from '../models/document.js';
+import Metadonnees from '../models/metadonnees.js';
+import { Op } from 'sequelize';
 
 /**
  * Gestion de l'upload d'un document
  * @param {*} req 
  * @param {*} res 
  */
-async function uploadDocument(req, res) {
+export async function uploadDocument(req, res) {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'Aucun fichier téléchargé' });
@@ -29,7 +30,6 @@ async function uploadDocument(req, res) {
 
     // Enregistrer les métadonnées associées
     if(metadata.length > 0){
-      const Metadonnees = require('../models/metadonnees');
       for(const meta of metadata){
         await Metadonnees.create({
           document_id: newDocument.id,
@@ -51,11 +51,9 @@ async function uploadDocument(req, res) {
  * @param {*} req 
  * @param {*} res 
  */
-async function searchDocuments(req, res) {
+export async function searchDocuments(req, res) {
   try {
     const { filename, user_id, meta_key, meta_value } = req.query;
-    const Metadonnees = require('../models/metadonnees');
-    const { Op } = require('sequelize');
 
     let whereDoc = {};
     if(filename){
@@ -84,8 +82,3 @@ async function searchDocuments(req, res) {
     res.status(500).json({ error: 'Erreur interne du serveur' });
   }
 }
-
-module.exports = {
-  uploadDocument,
-  searchDocuments,
-};

@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import * as metadonneesController from '../controllers/metadonneesController.js';
+import { authenticateJWT } from '../middleware/auth.js';
+
 const router = express.Router();
-const metadonneesController = require('../controllers/metadonneesController');
-const { authenticateJWT } = require('../middleware/auth');
 
 // Récupérer toutes les métadonnées d'un document
 router.get('/document/:documentId', authenticateJWT, metadonneesController.getDocumentMetadata);
@@ -15,4 +16,4 @@ router.put('/:id', authenticateJWT, metadonneesController.updateMetadata);
 // Supprimer une métadonnée
 router.delete('/:id', authenticateJWT, metadonneesController.deleteMetadata);
 
-module.exports = router;
+export default router;

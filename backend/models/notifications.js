@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('./index').sequelize;
+import { DataTypes } from 'sequelize';
+import { sequelize } from './index.js';
 
 /**
  * Modèle représentant une notification pour un utilisateur.
@@ -37,4 +37,4 @@ const Notification = sequelize.define('Notification', {
   timestamps: false,
 });
 
-module.exports = Notification;
+export default Notification;

@@ -1,10 +1,10 @@
-const User = require('../models/user');
-const DroitsAcces = require('../models/droits_acces');
+import User from '../models/user.js';
+import DroitsAcces from '../models/droits_acces.js';
 
 /**
  * Récupérer tous les utilisateurs
  */
-async function getUsers(req, res) {
+export async function getUsers(req, res) {
   try {
     const users = await User.findAll();
     res.json(users);
@@ -17,7 +17,7 @@ async function getUsers(req, res) {
 /**
  * Créer un nouvel utilisateur
  */
-async function createUser(req, res) {
+export async function createUser(req, res) {
   try {
     const { username, email, password, role } = req.body;
     if (!username || !email || !password) {
@@ -38,7 +38,7 @@ async function createUser(req, res) {
 /**
  * Mettre à jour un utilisateur
  */
-async function updateUser(req, res) {
+export async function updateUser(req, res) {
   try {
     const { id } = req.params;
     const { username, email, role } = req.body;
@@ -58,7 +58,7 @@ async function updateUser(req, res) {
 /**
  * Supprimer un utilisateur
  */
-async function deleteUser(req, res) {
+export async function deleteUser(req, res) {
   try {
     const { id } = req.params;
     const user = await User.findByPk(id);
@@ -76,7 +76,7 @@ async function deleteUser(req, res) {
 /**
  * Récupérer permissions d'un utilisateur
  */
-async function getUserPermissions(req, res) {
+export async function getUserPermissions(req, res) {
   try {
     const { user_id } = req.params;
     const permissions = await DroitsAcces.findAll({ where: { user_id } });
@@ -90,7 +90,7 @@ async function getUserPermissions(req, res) {
 /**
  * Ajouter une permission à un utilisateur
  */
-async function addPermission(req, res) {
+export async function addPermission(req, res) {
   try {
     const { user_id, document_id, permission } = req.body;
     if (!user_id || !permission) {
@@ -107,7 +107,7 @@ async function addPermission(req, res) {
 /**
  * Supprimer une permission
  */
-async function removePermission(req, res) {
+export async function removePermission(req, res) {
   try {
     const { id } = req.params;
     const perm = await DroitsAcces.findByPk(id);
@@ -121,13 +121,3 @@ async function removePermission(req, res) {
     res.status(500).json({ error: 'Erreur interne du serveur' });
   }
 }
-
-module.exports = {
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
-  getUserPermissions,
-  addPermission,
-  removePermission,
-};

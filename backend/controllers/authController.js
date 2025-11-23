@@ -1,13 +1,13 @@
-const bcrypt = require('bcrypt');
-const jwt = require('../utils/jwt');
-const User = require('../models/user');
+import bcrypt from 'bcrypt';
+import * as jwt from '../utils/jwt.js';
+import User from '../models/user.js';
 
 /**
  * Controller pour l'inscription d'un nouvel utilisateur
  * @param {*} req 
  * @param {*} res 
  */
-async function register(req, res) {
+export async function register(req, res) {
   try {
     const { username, email, password, role } = req.body;
     if (!username || !email || !password || !role) {
@@ -43,7 +43,7 @@ async function register(req, res) {
  * @param {*} req 
  * @param {*} res 
  */
-async function login(req, res) {
+export async function login(req, res) {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -71,8 +71,3 @@ async function login(req, res) {
     res.status(500).json({ error: 'Erreur interne du serveur' });
   }
 }
-
-module.exports = {
-  register,
-  login,
-};

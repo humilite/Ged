@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('./index').sequelize;
+import { DataTypes } from 'sequelize';
+import { sequelize } from './index.js';
 
 /**
  * Modèle représentant une étape de validation dans un workflow.
@@ -43,4 +43,4 @@ const WorkflowValidation = sequelize.define('WorkflowValidation', {
   updatedAt: 'updated_at',
 });
 
-module.exports = WorkflowValidation;
+export default WorkflowValidation;

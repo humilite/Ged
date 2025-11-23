@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import { authenticateJWT } from '../middleware/auth.js';
+import * as droitsAccesController from '../controllers/droitsAccesController.js';
+
 const router = express.Router();
-const droitsAccesController = require('../controllers/droitsAccesController');
-const { authenticateJWT } = require('../middleware/auth');
 
 console.log('Imported droitsAccesController:', droitsAccesController);
 
@@ -14,4 +15,4 @@ router.post('/', authenticateJWT, droitsAccesController.upsertAccessRights);
 // Supprimer les droits d'accès d'un utilisateur pour un document
 router.delete('/user/:userId/document/:documentId', authenticateJWT, droitsAccesController.deleteAccessRights);
 
-module.exports = router;
+export default router;
